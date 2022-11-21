@@ -1,10 +1,10 @@
-
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCNiWUZFe62qOJBkGbNe2oB2_ikocfkfpI",
   authDomain: "diplom-work-606fe.firebaseapp.com",
+  databaseURL: "https://diplom-work-606fe-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "diplom-work-606fe",
   storageBucket: "diplom-work-606fe.appspot.com",
   messagingSenderId: "974472064251",
@@ -14,4 +14,6 @@ const firebaseConfig = {
 
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+export const db = getFirestore(app);
+// export const app = initializeApp(firebaseConfig);
+// export const db = getFirestore(app);

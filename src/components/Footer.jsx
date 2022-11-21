@@ -2,7 +2,7 @@
 
 export default function Footer() {
     return(
-        <div className="bg-white pt-14 px-14 pb-8 mt-44">
+        <div className="bg-white pt-14 px-14 pb-8 mt-44 static bottom-0">
             <div className="container mx-auto">
                 <div className="grid grid-cols-3">
                     <ul>
