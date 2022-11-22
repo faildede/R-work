@@ -1,7 +1,7 @@
 import Logo from "../img/Logo_candidates.svg";
 import Search from '../img/Icon.svg'
 import Grou from '../img/Grou.svg'
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 export default function Head() {
 
@@ -50,7 +50,7 @@ export default function Head() {
           <li className="px-2"><Link to='/'>Менеджеры по продажам</Link></li>
         </ul>
     </div>
-    
+    <Outlet />
  </div>
   );
 }

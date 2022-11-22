@@ -1,20 +1,32 @@
 import { useState, useEffect } from 'react'
 import { app, db } from '../../utils/firebase'
-import { collection, getDocs } from 'firebase/firestore'
-import { Link, Outlet } from 'react-router-dom'
+import { collection, getDocs, onSnapshot, snapshotEqual } from 'firebase/firestore'
+import { Link, Outlet, Navigate, useNavigate } from 'react-router-dom'
+import MyLoader from '../MyLoader'
+
 
 export default function TypeOfUser() {
     const [data, setData] = useState([])
-    const database = collection(db, 'freelancers')
+    const [loading, setLoading] = useState(true)
+    const [isSubmit, setIsSubmit] = useState()
+   
 
-    const getData = async () => {
-      const data = await getDocs(database)
-      setData(data.docs.map((i) => {
-        return{ ...i.data(), id: i.id}
-      }))
-    }
+    const navigate = useNavigate()
+
     useEffect(() => {
-      getData()
+        const data = onSnapshot(
+          collection(db, 'freelancers'),
+          (snapshot) => {
+            let list = [];
+            snapshot.docs.forEach((doc) => {
+              list.push({id: doc.id, ...doc.data() });
+            });
+            const loading =() => <MyLoader />
+            setData(list)
+            setLoading(false)
+           
+          }
+        )
     }, [])
 
 
@@ -23,10 +35,10 @@ export default function TypeOfUser() {
     <div className="container mx-auto mt-32">
         <p className='text-center font-normal text-4xl'>Как выглядит база кандидатов</p>
         <div className='flex mt-8 '>
-
-      {data.map((i) => {
+        <loading />
+          {data.map((i) => {
       return (
-        <div className='bg-white rounded-lg mx-2 py-7 px-14 container mx-auto'>
+        <div key={i.id} i={i} className='bg-white rounded-lg mx-2 py-7 px-14 container mx-auto'>
             <div className='container mx-auto '>
              <div className='container mx-auto flex justify-between'>
              <p className='text-[#92400E] bg-[#FEF3C7] font-weight text-base px-2 rounded-full'>{i.workTop.Ftime}</p>
@@ -42,8 +54,10 @@ export default function TypeOfUser() {
                   <p>Зарплата: {i.salary} тыс.₸</p>
                 </div>
               </div>
-              <Link to="/Candidate/${i.id}">
-              <div className='bg-[#F1DF6F] cursor-pointer rounded-full py-2 px-4' key={i.id} >
+              <Link to="/Candidate/${i.id}"
+                state={i}
+              >
+              <div className='bg-[#F1DF6F] cursor-pointer rounded-full py-2 px-4'>
                 <p className='text-center text-base'>Посмотреть справку</p>
                 </div>
               </Link>
@@ -51,6 +65,7 @@ export default function TypeOfUser() {
         </div>
       )
      })}
+     
         </div>
         <Outlet />
     </div>

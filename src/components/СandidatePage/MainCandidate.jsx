@@ -1,11 +1,11 @@
 import Head from '../Head'
 import Footer from '../Footer'
 
-const MainCandidate = () => {
+const MainCandidate = ({i}) => {
     return ( 
         <div>
         <Head />
-        
+           
         <Footer />
         </div>
      );

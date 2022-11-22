@@ -2,20 +2,25 @@ import { useState } from "react";
 import Form from "../../img/Form.svg";
 import { addDoc, collection } from 'firebase/firestore'
 import { db } from '../../utils/firebase'
+import { Outlet } from "react-router-dom";
+import NewWindow from '../UtilsComponent/NewWindow'
 
 const FormBody = () => {
   const [newName, setNewName] = useState('')
   const [newEmail, setNewEmail] = useState('')
   const [newPhone, setNewPhone] = useState(0)
+  const [buttonPopup, setButtonPopup] = useState(false)
 
   const CollectionRef = collection(db, 'message')
 
   const createNewMessage = async() => {
-    await addDoc(CollectionRef, {name: newName, email:newEmail, phone:newPhone})
+    await addDoc(CollectionRef, {name: newName, email:newEmail, phone:newPhone});
+    setButtonPopup(true )
   }
 //TODO refresh and new coponent
   return (
-    <div className="container mx-auto mt-32 flex justify-between">
+    <div className="container mx-auto mt-32 flex justify-between relative">
+      <NewWindow trigger={buttonPopup} setTrigger={setButtonPopup} />
       <div className="w-8/12 container my-auto">
         <img src={Form} alt="/" />
       </div>
@@ -56,7 +61,7 @@ const FormBody = () => {
               onChange={(event) => {setNewPhone(event.target.value)}}
             />
           </div>
-          <div className="mt-8" onClick={createNewMessage()}>
+          <div className="mt-8" onClick={() => createNewMessage() } >
             {/*Button  */}
             <p className=" container mx-auto w-5/6 text-center cursor-pointer rounded-3xl py-2 my-4 font-normal text-lg bg-[#F1DF6F]">
               Подписаться
@@ -70,6 +75,8 @@ const FormBody = () => {
           </p>
         </div>
       </div>
+      <NewWindow  />
+      <Outlet />
     </div>
   );
 };
