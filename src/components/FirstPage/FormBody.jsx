@@ -19,11 +19,15 @@ const FormBody = () => {
   }
 //TODO refresh and new coponent
   return (
-    <div className="container mx-auto mt-32 flex justify-between relative">
-      <NewWindow trigger={buttonPopup} setTrigger={setButtonPopup} />
+    <>
+   
+    <div className="container mx-auto mt-32 flex justify-between items-center relative">
+    <NewWindow trigger={buttonPopup} setTrigger={setButtonPopup} />
       <div className="w-8/12 container my-auto">
         <img src={Form} alt="/" />
       </div>
+      
+  
       <div>
         <div className="bg-white px-10 py-8 rounded-t-lg w-full">{/*Form  */}
           <div className="container mx-auto text-center">{/*Text  */}
@@ -74,10 +78,13 @@ const FormBody = () => {
             соглашением</span> и <span className="text-[#111827] font-bold "    >Политикой конфиденциальности</span>
           </p>
         </div>
+       
       </div>
       <NewWindow  />
       <Outlet />
     </div>
+    
+     </>
   );
 };
 

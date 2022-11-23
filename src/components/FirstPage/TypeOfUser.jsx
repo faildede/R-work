@@ -3,10 +3,12 @@ import { app, db } from '../../utils/firebase'
 import { collection, getDocs, onSnapshot, snapshotEqual } from 'firebase/firestore'
 import { Link, Outlet, Navigate, useNavigate } from 'react-router-dom'
 import MyLoader from '../MyLoader'
+import { useRef } from 'react'
 
 
-export default function TypeOfUser() {
+export default function TypeOfUser()  {
     const [data, setData] = useState([])
+   
     const [loading, setLoading] = useState(true)
     const [isSubmit, setIsSubmit] = useState()
    
@@ -54,8 +56,7 @@ export default function TypeOfUser() {
                   <p>Зарплата: {i.salary} тыс.₸</p>
                 </div>
               </div>
-              <Link to="/Candidate/${i.id}"
-                state={i}
+              <Link to="/Candidate/${i.id}" data={i}
               >
               <div className='bg-[#F1DF6F] cursor-pointer rounded-full py-2 px-4'>
                 <p className='text-center text-base'>Посмотреть справку</p>
@@ -71,3 +72,9 @@ export default function TypeOfUser() {
     </div>
   );
 }
+
+const UserLoader = async({request, params}) => { 
+  console.log({ request, params })
+}
+
+export {UserLoader}

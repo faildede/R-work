@@ -1,11 +1,25 @@
-import { useLocation, Link } from "react-router-dom";
+import Head from '../Head'
+import Footer from '../Footer'
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
+const AboutCondidate = (setData) => {
+    // const [data, setData] = useState([]) 
+    // const {id} = useParams()
 
-const AboutCondidate = () => {
-    const { state } = useLocation();
+    useEffect(() => {
+
+    }, [])
+
+        console.log(setData());
     return ( 
         <div>
-            {state.i}
+            <Head />
+            <div>
+
+            </div>
+           <Footer />
         </div>
      );
 }
